@@ -226,7 +226,7 @@ const EnquiryModal: React.FC<EnquiryModalProps> = ({ isOpen, closeModal }) => {
 
           <div className="text-center mb-8 pt-4">
             <h2 className="text-lg font-semibold text-gray-800 leading-tight">
-              Know more about Brigade Plots Malur.
+              Know more about TVS Thanisandra.
               <br />
               Enquire now!
             </h2>

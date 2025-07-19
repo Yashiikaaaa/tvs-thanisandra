@@ -19,6 +19,7 @@ function App() {
   const openModal = () => {
     console.log("modal clicked");
     setModalOpen(true);
+    
   };
 
   const closeModal = () => {

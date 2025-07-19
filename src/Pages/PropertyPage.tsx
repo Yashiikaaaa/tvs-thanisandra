@@ -27,13 +27,21 @@ export default function PropertyPage({ openModal }: PropertyPageProps) {
 TVS Thanisandra is a premium township nestled in North Bengaluru, offering well-planned residential units in a fast-developing corridor. Surrounded by key infrastructure, top schools, and tech parks, it combines modern living with long-term growth potential—crafted by the trusted TVS Group for your dream home and smart investment.
           </p>
 
-          <button
-            onClick={openModal} // Open the modal when clicked
-            className="bg-black text-sm text-white font-semibold px-10 py-2 rounded-lg w-fit mb-4 md:px-16 cursor-pointer transition-transform duration-300 hover:scale-105 md:text-base"
-          >
-            Enquire Now
-          </button>
-
+         <button
+  onClick={() => {
+    ReactGA.event({
+      category: "Form Submission",
+      action: "Enquire now",
+      label: "Home",
+      value: 1,
+    });
+    openModal();
+  }}
+   className="bg-black text-sm text-white font-semibold px-10 py-2 rounded-lg w-fit mb-4 md:px-16 cursor-pointer transition-transform duration-300 hover:scale-105 md:text-base"
+>
+  Enquire Now
+</button>
+   
           <img
             src={flowers}
             alt="flowers"
