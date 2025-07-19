@@ -1,7 +1,7 @@
 import propertyImage from "../assets/tvsoverview.png";
 import flowers from "../assets/flowers.svg";
 import lines from "../assets/homepage-lines.svg";
-
+import ReactGA from "react-ga4";
 interface PropertyPageProps {
   openModal: () => void;
 }

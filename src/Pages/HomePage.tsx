@@ -1,7 +1,7 @@
 import phoneIcon from "../assets/phone.svg";
 import plotImage from "../assets/hometvs.jpg";
 import lines from "../assets/homepage-lines.svg";
-
+import ReactGA from "react-ga4";
 interface HomePageProps {
   openModal: () => void;
 }

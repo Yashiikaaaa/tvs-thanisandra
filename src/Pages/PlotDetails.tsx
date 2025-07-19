@@ -1,7 +1,7 @@
 import "swiper/css";
 import "swiper/css/pagination";
 import samplePlot from "../assets/plot.png";
-
+import ReactGA from "react-ga4";
 interface PlotDetailsProp {
   openModal: () => void;
 }
