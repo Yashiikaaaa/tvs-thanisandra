@@ -4,8 +4,8 @@ import lines from "../assets/lifestyle-lines.svg";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import image1 from "../assets/image1.svg";
-import image2 from "../assets/image2.svg";
+import image1 from "../assets/tvsemerald.jpg";
+import image2 from "../assets/tvsint.jpg";
 import image3 from "../assets/image3.svg";
 import image4 from "../assets/image4.svg";
 

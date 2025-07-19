@@ -171,9 +171,9 @@ const EnquiryModal: React.FC<EnquiryModalProps> = ({ isOpen, closeModal }) => {
       name: name.trim().toLowerCase(),
       phoneNumber: contactNumber,
       campaign: true,
-      projectId: "P031-A1",
-      projectName: "brigade plot malur",
-      currentAgent: "yasswanth@truestate.in",
+      projectId: "PL32",
+      projectName: "tvs emerald thanisandra",
+      currentAgent: "rahul@canvas-homes.com",
       utmDetails: {
         source: utmParams.utmSource || null,
         medium: utmParams.utmMedium || null,
@@ -321,7 +321,7 @@ const EnquiryModal: React.FC<EnquiryModalProps> = ({ isOpen, closeModal }) => {
 
             <div className="mb-8">
               <h2 className="text-xl font-semibold text-gray-800 leading-tight">
-                Know more about Brigade Plots? Enquire now!
+                Wnat to nnow more about TVS Emerald Thanisandra? Enquire now!
               </h2>
             </div>
 
