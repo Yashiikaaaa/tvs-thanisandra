@@ -25,7 +25,7 @@ const Footer: React.FC<FooterProps> = ({ openModal }) => {
           onClick={openModal} // Call openModal on click
           className="bg-black text-white text-lg md:text-base font-semibold px-12 py-3 md:px-16 md:py-2 rounded-xl cursor-pointer transition-transform duration-300 hover:scale-105"
         >
-          Fill the form
+          Book a Site Visit
         </button>
       </div>
 
