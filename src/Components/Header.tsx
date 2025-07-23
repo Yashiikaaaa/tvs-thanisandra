@@ -33,11 +33,11 @@ export function Header() {
           }}
           className="flex items-center space-x-2 mr-28 cursor-pointer"
         >
-          <img
+          {/* <img
   src={brigade}
   alt="Brigade Logo"
   className="h-[50px] w-auto object-contain"
-/>
+/> */}
 
         </div>
 
