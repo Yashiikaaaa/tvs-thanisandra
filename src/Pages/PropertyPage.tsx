@@ -24,7 +24,7 @@ export default function PropertyPage({ openModal }: PropertyPageProps) {
 
           <p className="text-sm text-black mb-3 md:text-lg">
            
-TVS Thanisandra is a premium township nestled in North Bengaluru, offering well-planned residential units in a fast-developing corridor. Surrounded by key infrastructure, top schools, and tech parks, it combines modern living with long-term growth potential—crafted by the trusted TVS Group for your dream home and smart investment.
+TVS Thanisandra is a premium township nestled in North Bengaluru, offering well-planned residential units in a fast-developing corridor. Surrounded by key infrastructure, top schools, and tech parks, it combines modern living with long-term growth potential-crafted by the trusted TVS Group for your dream home and smart investment.
           </p>
 
          <button
