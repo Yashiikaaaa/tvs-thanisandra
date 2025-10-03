@@ -1,5 +1,5 @@
 import { useState } from "react";
-import brigade from "../assets/tvslogo.png";
+import brigade from "../assets/tvsemarald.png";
 import menuIcon from "../assets/header-menu.svg"; // image to show when menu is closed
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -33,11 +33,11 @@ export function Header() {
           }}
           className="flex items-center space-x-2 mr-28 cursor-pointer"
         >
-          {/* <img
+          <img
   src={brigade}
   alt="Brigade Logo"
   className="h-[50px] w-auto object-contain"
-/> */}
+/>
 
         </div>
 
