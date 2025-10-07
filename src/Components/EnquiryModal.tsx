@@ -182,7 +182,8 @@ const EnquiryModal: React.FC<EnquiryModalProps> = ({ isOpen, closeModal }) => {
     };
 
     try {
-      const response = await fetch("https://googleleadsserver.onrender.com/handleMultipleCampaignData", {
+      const response = await fetch("https://google-campaign-leads-service-dot-iqol-crm.uc.r.appspot.com/handleMultipleCampaignData"
+    , {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
