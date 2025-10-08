@@ -12,7 +12,7 @@ import EnquiryModal from "./Components/EnquiryModal";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import ScrollToSectionWrapper from "./Components/ScrollToSectionWrapper";
-import { useLeadTracking, LEAD_SOURCES } from "./hooks/useLeadTracking"; // Import tracking hooks
+import { useLeadTracking, LEAD_SOURCES } from "./hooks/useLeadTracking";
 
 function App() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -68,7 +68,7 @@ function App() {
                 key={path}
                 path={path}
                 element={
-                  <ScrollToSectionWrapper scrollTo={scrollTo}>
+                  <ScrollToSectionWrapper scrollTo={scrollTo || '/'}>
                     <FullLayout />
                   </ScrollToSectionWrapper>
                 }
@@ -85,7 +85,7 @@ function App() {
       <EnquiryModal 
         isOpen={isModalOpen} 
         closeModal={closeModal} 
-        handleSubmit={handleFormSubmit} // Pass submit function to modal
+        // handleSubmit={handleFormSubmit} // Pass submit function to modal
       />
     </>
   );
