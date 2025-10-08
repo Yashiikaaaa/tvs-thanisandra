@@ -12,22 +12,38 @@ import EnquiryModal from "./Components/EnquiryModal";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import ScrollToSectionWrapper from "./Components/ScrollToSectionWrapper";
+import { useLeadTracking, LEAD_SOURCES } from "./hooks/useLeadTracking"; // Import tracking hooks
 
 function App() {
   const [isModalOpen, setModalOpen] = useState(false);
 
+  // Get tracking functions from useLeadTracking
+  const { trackButtonClick, trackFormSubmission, trackFormOpen } = useLeadTracking();
+
+  // Modal open/close functions
   const openModal = () => {
-    console.log("modal clicked");
+    trackFormOpen(LEAD_SOURCES.HERO, "contact_form"); // Track when form is opened
     setModalOpen(true);
-    
   };
 
   const closeModal = () => {
     setModalOpen(false);
   };
 
-  const layoutProps = { openModal };
+  // Button click tracking (Example: "Contact Us" button click)
+  const handleButtonClick = () => {
+    trackButtonClick(LEAD_SOURCES.HERO, "click", "Hero Section Button"); // Track button click event
+  };
 
+  // Form submission tracking
+  const handleFormSubmit = () => {
+    trackFormSubmission(LEAD_SOURCES.CONTACT_FORM_LINK, "contact_form"); // Track form submission
+  };
+
+  // Layout for the pages
+  const layoutProps = { openModal, handleButtonClick };
+
+  // Full page layout component
   const FullLayout = () => (
     <>
       <HomePage {...layoutProps} />
@@ -44,66 +60,33 @@ function App() {
       <Header />
 
       <Routes>
-        <Route
-          path="/"
-          element={
-            <ScrollToSectionWrapper>
-              <FullLayout />
-            </ScrollToSectionWrapper>
+        {["/", "/home", "/overview", "/location", "/amenities", "/gallery", "/floorplan"].map(
+          (path) => {
+            const scrollTo = path === "/" ? null : path.replace("/", "");
+            return (
+              <Route
+                key={path}
+                path={path}
+                element={
+                  <ScrollToSectionWrapper scrollTo={scrollTo}>
+                    <FullLayout />
+                  </ScrollToSectionWrapper>
+                }
+              />
+            );
           }
-        />
-        <Route
-          path="/home"
-          element={
-            <ScrollToSectionWrapper scrollTo="home">
-              <FullLayout />
-            </ScrollToSectionWrapper>
-          }
-        />
-        <Route
-          path="/overview"
-          element={
-            <ScrollToSectionWrapper scrollTo="overview">
-              <FullLayout />
-            </ScrollToSectionWrapper>
-          }
-        />
-        <Route
-          path="/location"
-          element={
-            <ScrollToSectionWrapper scrollTo="location">
-              <FullLayout />
-            </ScrollToSectionWrapper>
-          }
-        />
-        <Route
-          path="/amenities"
-          element={
-            <ScrollToSectionWrapper scrollTo="amenities">
-              <FullLayout />
-            </ScrollToSectionWrapper>
-          }
-        />
-        <Route
-          path="/gallery"
-          element={
-            <ScrollToSectionWrapper scrollTo="gallery">
-              <FullLayout />
-            </ScrollToSectionWrapper>
-          }
-        />
-        <Route
-          path="/floorplan"
-          element={
-            <ScrollToSectionWrapper scrollTo="floorplan">
-              <FullLayout />
-            </ScrollToSectionWrapper>
-          }
-        />
+        )}
       </Routes>
 
-      <Footer {...layoutProps} />
-      <EnquiryModal isOpen={isModalOpen} closeModal={closeModal} />
+      {/* Footer with modal open functionality */}
+      <Footer openModal={openModal} />
+
+      {/* Enquiry Modal with form submission tracking */}
+      <EnquiryModal 
+        isOpen={isModalOpen} 
+        closeModal={closeModal} 
+        handleSubmit={handleFormSubmit} // Pass submit function to modal
+      />
     </>
   );
 }
