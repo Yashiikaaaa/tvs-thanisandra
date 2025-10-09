@@ -33,7 +33,7 @@ function App() {
   };
 
   const handleButtonClick = () => {
-    trackButtonClick(LEAD_SOURCES.HERO, "click", "Hero Section Button");
+    trackButtonClick(LEAD_SOURCES.HERO, "click");
   };
 
 
