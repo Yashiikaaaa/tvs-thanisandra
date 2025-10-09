@@ -60,7 +60,8 @@ export type LeadSource = typeof LEAD_SOURCES[keyof typeof LEAD_SOURCES];
 export const PROPERTY_TYPES = {
   BHK2: "2BHK",
   BHK3: "3BHK",
-  BHK4: "4BHK"
+  BHK4: "4BHK",
+  all: "All",
 } as const;
 
 export type PropertyType = typeof PROPERTY_TYPES[keyof typeof PROPERTY_TYPES];

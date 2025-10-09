@@ -5,6 +5,7 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { FormAlert } from "./FormAlert";
 import ReactGA from "react-ga4";
+import { LEAD_SOURCES, PROPERTY_TYPES, useLeadTracking } from "../hooks/useLeadTracking";
 
 interface EnquiryModalProps {
   isOpen: boolean;
@@ -53,6 +54,7 @@ const EnquiryModal: React.FC<EnquiryModalProps> = ({ isOpen, closeModal }) => {
   const [submittedNumbers, setSubmittedNumbers] = useState<Set<string>>(new Set());
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submissionStatus, setSubmissionStatus] = useState<string>("");
+  const { trackFormSubmission } = useLeadTracking();
   const [utmParams, setUtmParams] = useState({
     utmSource: "",
     utmMedium: "",
@@ -161,7 +163,6 @@ const EnquiryModal: React.FC<EnquiryModalProps> = ({ isOpen, closeModal }) => {
 
     const isNameValid = validateName(name);
     const isContactValid = validateContactNumber(contactNumber);
-
     if (!isNameValid || !isContactValid) return;
 
     setIsSubmitting(true);
@@ -182,22 +183,33 @@ const EnquiryModal: React.FC<EnquiryModalProps> = ({ isOpen, closeModal }) => {
     };
 
     try {
-      const response = await fetch("https://google-campaign-leads-service-dot-iqol-crm.uc.r.appspot.com/handleMultipleCampaignData"
-    , {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        "https://google-campaign-leads-service-dot-iqol-crm.uc.r.appspot.com/handleMultipleCampaignData",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
 
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
       const result = await response.json();
       console.log("Form submitted successfully:", result);
 
+      // 🔥 GA4 Event Tracking
+      trackFormSubmission(
+        LEAD_SOURCES.HERO,        // or whichever source (HERO, FOOTER, etc.)
+        "contact_form",           // formType (same as your naming)
+        PROPERTY_TYPES.all       // optional, can be null if not applicable
+      );
+
+      // Google Ads conversion tracking (if defined)
       gtag_report_conversion();
 
       setSubmittedNumbers((prev) => new Set(prev).add(contactNumber));
-      setSubmissionStatus("We have successfully received your information. Expect to hear from us shortly!");
+      setSubmissionStatus(
+        "We have successfully received your information. Expect to hear from us shortly!"
+      );
     } catch (error) {
       console.error("Submission error:", error);
       setSubmissionStatus("Something went wrong. Please try again later.");
