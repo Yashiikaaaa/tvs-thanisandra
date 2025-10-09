@@ -2,8 +2,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import samplePlot from "../assets/plot.png";
 import ReactGA from "react-ga4";
+import { LEAD_SOURCES, useLeadTracking } from "../hooks/useLeadTracking";
 interface PlotDetailsProp {
-  openModal: () => void;
+  openModal: (source: string) => void;
 }
 
 const plotData = [
@@ -21,10 +22,13 @@ const plotData = [
   },
 ];
 
-
 export default function PlotDetailsPage({ openModal }: PlotDetailsProp) {
+  const { trackButtonClick } = useLeadTracking();
   return (
-    <div id="floorplan" className="bg-[#f2fbe7] w-full py-10 px-10 flex flex-col items-center md:items-start z-10 scroll-mt-16">
+    <div
+      id="floorplan"
+      className="bg-[#f2fbe7] w-full py-10 px-10 flex flex-col items-center md:items-start z-10 scroll-mt-16"
+    >
       {/* Section Heading */}
       <h2 className="text-[#26650B] font-semibold text-base md:text-xl border-3 border-[#26650B] px-8 py-1 mx-10 rounded-full mb-6 whitespace-nowrap">
         Configurations
@@ -48,27 +52,26 @@ export default function PlotDetailsPage({ openModal }: PlotDetailsProp) {
               className="w-full h-full object-cover blur-sm"
             />
             <div className="absolute inset-0 flex items-center justify-center">
-               <button
-  onClick={() => {
-    ReactGA.event({
-      category: "Form Submission",
-      action: "Get Pricing",
-      label: "Pricing",
-      value: 1,
-    });
-    openModal();
-  }}
-  className="cursor-pointer px-12 md:px-20 py-2 bg-black text-white rounded-xl text-base font-semibold transition-transform duration-300 hover:scale-105 md:text-base"
->
-  Enquire Now
-</button>
-
+              <button
+                onClick={() => {
+                  ReactGA.event({
+                    category: "Form Submission",
+                    action: "Get Pricing",
+                    label: "Pricing",
+                    value: 1,
+                  });
+                  openModal("pricing");
+                  trackButtonClick(LEAD_SOURCES.PRICING, "fill_form");
+                }}
+                className="cursor-pointer px-12 md:px-20 py-2 bg-black text-white rounded-xl text-base font-semibold transition-transform duration-300 hover:scale-105 md:text-base"
+              >
+                Enquire Now
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
   );
 }
 
