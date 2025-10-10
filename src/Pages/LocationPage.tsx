@@ -1,4 +1,4 @@
-import locationMap from "../assets/mapimage.png";
+import locationMap from "../assets/map.png";
 import flowers from "../assets/flowers.svg";
 import lines from "../assets/homepage-lines.svg";
 
