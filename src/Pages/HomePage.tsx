@@ -2,11 +2,13 @@ import phoneIcon from "../assets/phone.svg";
 import plotImage from "../assets/hometvs.jpg";
 import lines from "../assets/homepage-lines.svg";
 import ReactGA from "react-ga4";
+import { LEAD_SOURCES, useLeadTracking } from "../hooks/useLeadTracking";
 interface HomePageProps {
-  openModal: () => void;
+  openModal: (source:string) => void;
 }
 
 function HomePage({ openModal }: HomePageProps) {
+   const {trackButtonClick}=useLeadTracking();
   return (
    <div id="home" className="bg-[#F2FFED] min-h-screen font-sans text-green-900 overflow-x-hidden overflow-y-hidden md:relative md:z-0 pt-[69px] md:pt-[80px] scroll-mt-16">
   {/* Heading */}
@@ -78,7 +80,8 @@ function HomePage({ openModal }: HomePageProps) {
       label: "Home",
       value: 1,
     });
-    openModal();
+    openModal('hero_banner');
+    trackButtonClick(LEAD_SOURCES.HERO, 'fill_form');
   }}
   className="cursor-pointer px-12 md:px-20 py-2 bg-black text-white rounded-xl text-base font-semibold transition-transform duration-300 hover:scale-105 md:text-base"
 >

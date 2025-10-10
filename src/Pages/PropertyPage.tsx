@@ -2,11 +2,13 @@ import propertyImage from "../assets/tvsoverview.png";
 import flowers from "../assets/flowers.svg";
 import lines from "../assets/homepage-lines.svg";
 import ReactGA from "react-ga4";
+import { LEAD_SOURCES, useLeadTracking } from "../hooks/useLeadTracking";
 interface PropertyPageProps {
-  openModal: () => void;
+  openModal: (source:string) => void;
 }
 
 export default function PropertyPage({ openModal }: PropertyPageProps) {
+   const {trackButtonClick}=useLeadTracking();
   return (
     <div id="overview" className="scroll-mt-24 w-full bg-white overflow-hidden md:py-14 md:relative md:z-0 ">
       <div className="flex flex-col md:flex-row items-start mx-auto md:z-1">
@@ -35,7 +37,8 @@ TVS Thanisandra is a premium township nestled in North Bengaluru, offering well-
       label: "Home",
       value: 1,
     });
-    openModal();
+    openModal('download_brochure');
+    trackButtonClick(LEAD_SOURCES.OVERVIEW, 'fill_form');
   }}
    className="bg-black text-sm text-white font-semibold px-10 py-2 rounded-lg w-fit mb-4 md:px-16 cursor-pointer transition-transform duration-300 hover:scale-105 md:text-base"
 >

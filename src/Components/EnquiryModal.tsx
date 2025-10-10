@@ -5,11 +5,12 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { FormAlert } from "./FormAlert";
 import ReactGA from "react-ga4";
-import { LEAD_SOURCES, PROPERTY_TYPES, useLeadTracking } from "../hooks/useLeadTracking";
+import { useLeadTracking } from "../hooks/useLeadTracking";
 
 interface EnquiryModalProps {
   isOpen: boolean;
   closeModal: () => void;
+  source: string
 }
 
 // Declare global gtag to avoid TS errors
@@ -45,7 +46,7 @@ const gtag_report_conversion = (url?: string) => {
   }
 };
 
-const EnquiryModal: React.FC<EnquiryModalProps> = ({ isOpen, closeModal }) => {
+const EnquiryModal: React.FC<EnquiryModalProps> = ({ isOpen, closeModal, source }) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [contactNumber, setContactNumber] = useState<string>("");
@@ -198,9 +199,8 @@ const EnquiryModal: React.FC<EnquiryModalProps> = ({ isOpen, closeModal }) => {
 
       // 🔥 GA4 Event Tracking
       trackFormSubmission(
-        LEAD_SOURCES.HERO,        // or whichever source (HERO, FOOTER, etc.)
+        source,        // or whichever source (HERO, FOOTER, etc.)
         "contact_form",           // formType (same as your naming)
-        PROPERTY_TYPES.all       // optional, can be null if not applicable
       );
 
       // Google Ads conversion tracking (if defined)

@@ -16,34 +16,29 @@ import { useLeadTracking, LEAD_SOURCES } from "./hooks/useLeadTracking";
 
 function App() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [modalSource, setModalSource] = useState<string | null>(null); // <-- New state
 
-  // Get tracking functions from useLeadTracking
-  const { trackButtonClick, trackFormSubmission, trackFormOpen } = useLeadTracking();
+  const { trackButtonClick, trackFormOpen } = useLeadTracking();
 
   // Modal open/close functions
-  const openModal = () => {
-    trackFormOpen(LEAD_SOURCES.HERO, "contact_form"); // Track when form is opened
+  const openModal = (source: string) => {
+    setModalSource(source); // <-- Save the source
+    trackFormOpen(source, "contact_form"); // Track when form is opened
     setModalOpen(true);
   };
 
   const closeModal = () => {
     setModalOpen(false);
+    setModalSource(null); // optional: clear source when closed
   };
 
-  // Button click tracking (Example: "Contact Us" button click)
   const handleButtonClick = () => {
-    trackButtonClick(LEAD_SOURCES.HERO, "click", "Hero Section Button"); // Track button click event
+    trackButtonClick(LEAD_SOURCES.HERO, "click");
   };
 
-  // Form submission tracking
-  const handleFormSubmit = () => {
-    trackFormSubmission(LEAD_SOURCES.CONTACT_FORM_LINK, "contact_form"); // Track form submission
-  };
 
-  // Layout for the pages
   const layoutProps = { openModal, handleButtonClick };
 
-  // Full page layout component
   const FullLayout = () => (
     <>
       <HomePage {...layoutProps} />
@@ -78,14 +73,13 @@ function App() {
         )}
       </Routes>
 
-      {/* Footer with modal open functionality */}
       <Footer openModal={openModal} />
 
-      {/* Enquiry Modal with form submission tracking */}
       <EnquiryModal 
         isOpen={isModalOpen} 
         closeModal={closeModal} 
-        // handleSubmit={handleFormSubmit} // Pass submit function to modal
+        source={modalSource? modalSource: 'unknown'} // <-- Pass source to modal
+        // handleSubmit={handleFormSubmit} 
       />
     </>
   );
